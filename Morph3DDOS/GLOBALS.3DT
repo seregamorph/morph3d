@@ -1,0 +1,86 @@
+
+
+
+
+
+;----------------------------------------------------------------------------;
+;  3DTEST.ASM  ;  globals                                                    ;
+;----------------------------------------------------------------------------;
+        global  SHADOW:ABS
+        global  SHADOW2:ABS
+        global  SHADOW3:ABS
+        global  POINTS:ABS
+        global  POINTSXYZ:ABS
+
+
+;----------------------------------------------------------------------------;
+;  MORPH.ASM  ;  globals                                                     ;
+;----------------------------------------------------------------------------;
+        global  initmorph:PROC
+        global  domorph:PROC
+        global  closemorph:PROC
+        global  motion:PROC
+
+        global  motion_data:WORD:600
+        global  motion_temp:WORD:3
+        global  morph_srce1:WORD
+        global  morph_srce2:WORD
+        global  morph_dest:WORD
+        global  motion_dest:WORD
+        global  motion_counter:WORD
+        global  motion_max:WORD
+        global  rand_morph:WORD
+
+        global  MOTION_TICKS:ABS
+        global  MORPHDELAY:ABS
+        global  MORPHLENINC:ABS
+        global  MULTIPLIER:ABS
+
+
+;----------------------------------------------------------------------------;
+;  3DRANS.ASM  ;  globals                                                    ;
+;----------------------------------------------------------------------------;
+        global  rotate:PROC
+        global  project:PROC
+        global  draw_points4:PROC
+        global  erase_points:PROC
+        global  makeliss:PROC
+        global  makeparam:PROC
+        global  makesphere:PROC
+        global  maketorus:PROC
+        global  rotate2Dfig:PROC
+
+        global  rotate_srce:DATAPTR
+        global  rotate_dest:DATAPTR
+        global  project_srce:DATAPTR
+        global  project_dest:DATAPTR
+        global  web_coor:DATAPTR
+        global  web_link:DATAPTR
+        global  rotateMX:DATAPTR
+        global  rotateMY:DATAPTR
+        global  rotateMZ:DATAPTR
+
+        global  yaw:ABS
+        global  roll:ABS
+        global  pitch:ABS
+        global  mx:ABS
+        global  my:ABS
+        global  mz:ABS
+        global  sx:ABS
+        global  sy:ABS
+        global  mag:ABS
+
+
+;----------------------------------------------------------------------------;
+;  SINTAB.ASM  ;  globals                                                    ;
+;----------------------------------------------------------------------------;
+        global  InitSinCos:PROC
+        global  sine:PROC
+        global  sinsq:PROC
+        global  cosine:PROC
+        global  cossq:PROC
+
+        global  sin:WORD:4500
+
+        global  cos:ABS
+

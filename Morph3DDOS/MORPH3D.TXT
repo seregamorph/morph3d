@@ -1,0 +1,15 @@
+Electronics Workbench Circuit File
+Version: 5
+Charset: ANSI
+Description: 
+"This circuit uses an A-to-D converter to convert an analog input to a digital output. It then uses a D-to-A converter to convert it back to analog again. Double-click on the function generator icon and decrease the frequency on the function generator to see the effects of  a lower sampling rate." 
+
+EncryptionType: 2
+UsingVectorGraphics: 0
+/000@D0I0?4D<DHI@3078;L=8?@A404D8@4@8GD7L80@030B88HIHC078=4M040542
+<@H9@34G4MHE0?D?<B8G0D4K<2@6L<4K0980DE<IDC0B<LHAD3<20=480J@A024:<
+98=0?4N<DHADB4F0BDN8FH8H3<8D0<DH>@BD98:<L0BHG<6@<HJ8A@BDEH3@=DILJ
+@O89<;<:49HKH@0B008880@2L24:8@@9@=4244<8LAH3@5D3L6L8L4@2LMD=DCDLH
+I0OH7H8<;HJD>0248<4H:4D0I03D64;LD@B@C48<FL88BHH8G<IDDDAD14GLNH701
+4J<DH=@B870H8LHADK0680H28:<CL90;4JD004DI@C@G454ADM4K<6@78=0J<<<A@
+1H5H;@I8BH><9
