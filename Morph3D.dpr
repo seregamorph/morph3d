@@ -1,8 +1,8 @@
-// Morph3D Screen Saver for Windows 9x/ME/NT/2000/XP
-// Morph3D Web-Site : http://morph3d.nm.ru
+// Morph3D Screen Saver for Windows
+// https://github.com/seregamorph/morph3d
 //
-// Разработал Чернов Сергей / Made by Chernov Sergey
-// E-mail: morph3d@mail.ru
+// Made by Sergey Chernov
+// E-mail: morph3d[at]mail.ru
 
 program Morph3D;
 uses
@@ -36,25 +36,30 @@ const
   AppName = 'Morph3D Screen Saver';
   RegKey = 'Software\Morph3D';
 
-  ID_SHOWFPS=256; // Окно настроек- показ "кадр/с"
-                  // Identificator of checkbox "FPS"
+  // Checkbox "FPS"
+  ID_SHOWFPS=256;
 
-  ID_UNSORT=257; // Окно настроек - "Сортированиие точек"
-                 // Identificator of checkbox "Unsort points"
+  // Checkbox "Unsort points"
+  ID_UNSORT=257;
 
-  ID_MOUSESENS=258; // Окно настроек - "Чувствительность мышки"
-                   // Identificator of checkbox "Mouse Sensivity"
-  ID_MOVE3D=259; // Окно настроек - "Перемещение объекта в 3-х мерном пространстве"
-                 // Identificator of checkbox "Move in 3D"
-  ID_PRIMITIVEPOINTS=262; // Окно настроек - "Упрощенная прорисовка точек"
-                          // Identificator of checkbox "Primitive points draw"
-  ID_HUESOFGRAY=263; // Окно настроек - "Градации серого"
-                     // Identificator of checkbox "Hues of gray"
+  // Checkbox "Mouse Sensivity"
+  ID_MOUSESENS=258;
 
-  ID_MAIL=260; // Окно настроек - e-mail
-               // Identificator of button "morph3d@mail.ru"
-  ID_SITE=261; // Окно настроек - сайт
-               // Identificator of button "http://morph3d.nm.ru"
+  // Checkbox "Move in 3D"
+  ID_MOVE3D=259;
+
+  // Checkbox "Primitive points draw"
+  ID_PRIMITIVEPOINTS=262;
+
+  // Checkbox "Hues of gray"
+  ID_HUESOFGRAY=263;
+
+  // Button e-mail
+  ID_MAIL=260;
+
+  // Button site
+  ID_SITE=261;
+
   ID_TRACE=264;
 
   ID_TRACEMODECOMBO=265;
@@ -262,7 +267,7 @@ begin
           EndDialog(Dialog, 1);
         end;
         ID_MAIL : ShellExecute(0, nil, 'mailto:morph3d@mail.ru', nil, nil, SW_NORMAL);
-        ID_SITE : ShellExecute(0, nil, 'http://morph3d.nm.ru', nil, nil, SW_NORMAL);
+        ID_SITE : ShellExecute(0, nil, 'https://github.com/seregamorph/morph3d', nil, nil, SW_NORMAL);
         ID_TRACE :
           begin
             Trace := (SendMessage(GetDlgItem(Dialog, ID_TRACE), BM_GETCHECK, 0, 0) = 1);
@@ -324,7 +329,7 @@ begin
     SetDIBColorTable(CDC, 0, 256, palentryarr);
   end;
 
-  SetBkColor(CDC, clBlack); // полная очистка экрана / erase full screen
+  SetBkColor(CDC, clBlack); // screen clean
   ExtTextOut(CDC, 0, 0, ETO_OPAQUE, @WndRect, nil, 0, nil);
 
   SetBkColor(DC, clBlack);
@@ -457,7 +462,7 @@ var
 begin
   Randomize;
 
-  // Загрузка строковых ресурсов / Loading string resources
+  // Loading string resources
   for n := 1 to ResStrCount do
   begin
     LoadString(hInstance, n, Buff, SizeOf(Buff));
@@ -479,12 +484,11 @@ begin
     if (not DoRegister) then
     begin
       MessageBox(0, PChar(ResStr[2]), AppName, MB_OK or MB_ICONERROR);
-      //'Невозможно зарегистрировать окно!',
       //'Unable to Register Window Class!'
       Exit;
     end;
 
-    if ((S='P') or (S='p')) then // превьюшка / preview mode
+    if ((S='P') or (S='p')) then // preview mode
     begin
       ParentWnd := StrToInt(ParamStr(2));
       GetWindowRect(ParentWnd, R);
@@ -497,8 +501,6 @@ begin
 
       hWindow := CreateWindowEx(WS_EX_TOOLWINDOW, AppName, AppName, WS_POPUP,
         0, 0, R.Right-R.Left, R.Bottom-R.Top, ParentWnd, 0, HInstance, nil);
-//      hWindow := CreateWindow(AppName, AppName, WS_POPUP,
-//        0, 0, R.Right-R.Left, R.Bottom-R.Top, ParentWnd, 0, HInstance, nil);
     end else
       hWindow := CreateWindow(AppName, AppName,
         WS_CHILD or WS_VISIBLE or WS_DISABLED, 0, 0, R.Right-R.Left,
@@ -507,7 +509,6 @@ begin
     if (hWindow = 0) then
     begin
       MessageBox(0, PChar(ResStr[3]), AppName, MB_OK or MB_ICONERROR);
-      // 'Невозможно создать окно!'
       // 'Unable to Create a Window!'
       Exit;
     end;
@@ -534,7 +535,6 @@ begin
     end;
 
     SystemParametersInfo(SPI_SCREENSAVERRUNNING, 0, @Dummy, 0);
-//    if (not Preview) then InvalidateRect(0, nil, False);
   end else
   begin
     if (Length(S)>0) then

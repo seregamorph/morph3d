@@ -30,13 +30,12 @@ var
   n : Integer;
   ang, z : Single;
 begin
-  // кривая 1 / curve 1
+  // curve 1
   for n := 0 to (PointsCount div 3)-1 do
   begin
-    ang := n/PointsCount* 3 *pi*2; // pi*2 - полная окружность / full round
-                                   // n/PointsCount - % круга / of then round
-                                   // *_* - сколько точек за раз (div _) /
-                                   // how much points at one time
+    ang := n/PointsCount* 3 *pi*2; // pi*2 - full circle
+                                   // n/PointsCount - % of the round
+                                   // *_* - (div _) / how many points at one time
     z := sin(2*ang);
 
     AddPoint(CoordsArr, XYZ(sin(ang), cos(ang), z));
@@ -50,14 +49,13 @@ var
   n : Integer;
   ang, z : Single;
 begin
-  // кривая 2 / curve 2
+  // curve 2
   for n := 0 to (PointsCount div 2)-1 do
   begin
-    ang := n/PointsCount* 2 *pi*2; // pi*2 - полная окружность / full round
-                                   // n/PointsCount - % круга / of then round
-                                   // *_* - сколько точек за раз (div _) /
-                                   // how much points at one time
-    z := sin(2*ang); // Очень круто ! / Very cool !
+    ang := n/PointsCount* 2 *pi*2; // pi*2 - full round
+                                   // n/PointsCount - % of the round
+                                   // *_* - (div _) how many points at one time
+    z := sin(2*ang);
 
     AddPoint(CoordsArr, XYZ(sin(ang)*sqrt(1-z), cos(ang)*sqrt(1+z), z));
     AddPoint(CoordsArr, XYZ(sin(ang+pi/2)*sqrt(1-z), cos(ang+pi/2)*sqrt(1+z), z));
@@ -68,7 +66,7 @@ procedure InitPyramideTri(var CoordsArr : TCoords3DArr);
 var
   n : Integer;
 begin
-  // тетраэдр / tetraedr
+  // tetraedr
   AddPoint(CoordsArr, XYZ(1, 1, 1));    // 0
   AddPoint(CoordsArr, XYZ(-1,  -1, 1)); // 1
   AddPoint(CoordsArr, XYZ(1,  -1, -1)); // 2
@@ -88,7 +86,7 @@ procedure InitCube(var CoordsArr : TCoords3DArr);
 var
   n : Integer;
 begin
-  // гексаэдр, куб / cube
+  // cube
   AddPoint(CoordsArr, XYZ( 1,  1,  1)); // 0
   AddPoint(CoordsArr, XYZ(-1,  1,  1)); // 1
   AddPoint(CoordsArr, XYZ( 1, -1,  1)); // 2
@@ -119,7 +117,7 @@ var
   i : Integer;
   ang : Single;
 begin
-  // Игральный кубик / Play cube
+  // Play cube
   for i := 0 to 17 do
   begin
     ang := i/18*2*pi;
@@ -191,7 +189,7 @@ procedure InitOctaedr(var CoordsArr : TCoords3dArr);
 var
   n : Integer;
 begin
-  // октаэдр / octaedr
+  // octaedr
   AddPoint(CoordsArr, XYZ(0,  0,  1)); // 2
   AddPoint(CoordsArr, XYZ(1,  0,  0)); // 0
   AddPoint(CoordsArr, XYZ(0,  1,  0)); // 1
@@ -221,11 +219,11 @@ var
   n : Integer;
   ang : Single;
 begin
-  // икосаэдр / icosaedr
+  // icosaedr
 
   for n := 0 to 4 do //0-9
   begin
-    ang := n/5*2*pi; // 5 делений / 5 divisions
+    ang := n/5*2*pi; // 5 divisions
     AddPoint(CoordsArr, XYZ(sin(ang), cos(ang), 0.5));
     AddPoint(CoordsArr, XYZ(sin(ang+pi/5), cos(ang+pi/5), -0.5));
   end;
@@ -249,10 +247,10 @@ var
   n : Integer;
   ang : Single;
 begin
-  // додекаэдр / dodecaedr
+  // dodecaedr
   for n := 0 to 4 do //0-9
   begin
-    ang := n/5*2*pi; // 5 делений / 5 divisions
+    ang := n/5*2*pi; // 5 divisions
     IcoPoints[2*n]   := XYZ(sin(ang), cos(ang), 0.5);
     IcoPoints[2*n+1] := XYZ(sin(ang+pi/5), cos(ang+pi/5), -0.5);
   end;
@@ -499,7 +497,7 @@ var
   n, k : Integer;
   r, xa, ya, za, ang : Single;
 begin
-  // тор / torus
+  // torus
   for n := 0 to (PointsCount div 12)-1 do
   begin
     ang := n/PointsCount * 12 * 2 *pi;
@@ -522,7 +520,7 @@ var
   n : Integer;
   angm, ang, r, xa, ya, za : Single;
 begin
-  // спираль / spiral
+  // spiral
   for n := 0 to (PointsCount-1) do
   begin
     angm := n/PointsCount * 2*pi;
@@ -794,7 +792,7 @@ begin
     else InitFootball(CoordsArr);
   end;
 
-  if UnSortPoints then UnSort(CoordsArr); // перемешать точки / mix points
+  if UnSortPoints then UnSort(CoordsArr); // mix points
 end;
 
 procedure CalcPos;

@@ -16,8 +16,9 @@ const
   ResStrCount = 8;
 
 var
-  WaitPer : Single = 6000; // Период между превращениями фигур
-                           // Time between "morphing"
+  // Time between "morphing"
+  WaitPer : Single = 6000;
+
 type
   TCoords3D = record
     X, Y, Z : Single;
@@ -147,14 +148,11 @@ procedure UpdateDisplay;
 var
   LastRect : TRect;
   FPSStr : String;
-//  LastLeftTemp, LastRightTemp,
-//  LastTopTemp, LastBottomTemp : Integer;
   dx, dy : Integer;
   PLine : PByteArray;
   pixel : Integer;
 label Loop, Zero;
 begin
-  // перерисовка на экран
   if (not (FirstFrame or Preview or Trace)) then
     BitBlt(DC, LastLeft, LastTop, LastRight-LastLeft,
       LastBottom-LastTop, CDC, LastLeft, LastTop, SRCCOPY) else
@@ -162,14 +160,6 @@ begin
     BitBlt(DC, WndRect.Left, WndRect.Top, WndWidth, WndHeight, CDC, 0, 0, SRCCOPY);
     FirstFrame := False;
   end;
-
-{  if (not Trace) then
-  begin
-    LastLeft := LastLeftTemp;
-    LastRight := LastRightTemp;
-    LastTop := LastTopTemp;
-    LastBottom := LastBottomTemp;
-  end;}
 
   if (not Trace) then
   begin
@@ -179,7 +169,7 @@ begin
     LastRect.Bottom := LastBottom;
   end;
   Inc(FrameCount);
-  SetBkColor(CDC, clBlack); // очистка экрана / erase screen
+  SetBkColor(CDC, clBlack); // screen clean
   if (not Trace) then ExtTextOut(CDC, 0, 0, ETO_OPAQUE, @LastRect, nil, 0, nil);
 
   if (not Trace) then
@@ -191,11 +181,6 @@ begin
   end;
 
   DrawScreen;
-
-{  LastLeftTemp := LastLeft;
-  LastRightTemp := LastRight;
-  LastTopTemp := LastTop;
-  LastBottomTemp := LastBottom;}
 
   if (not Trace) then
   begin
@@ -223,24 +208,6 @@ begin
       end;
     tmDiffuse :
       begin
-{       asm
-          mov edi, bitptr
-          mov ecx, 1024*768
-          xor ax, ax
-        end;
-        Loop:
-        asm
-          mov al, [es:edi]
-          cmp ax, 0
-          jz Zero
-          dec ax
-        end;
-        Zero:
-        asm
-          stosb
-          loop Loop
-        end;}
-
         for dy := 1 to WndHeight-2 do
         begin
           PLine := Pointer(LongInt(bitptr)+dy*WndWidth);
@@ -260,12 +227,8 @@ begin
           PLine := Pointer(LongInt(bitptr)+dy*WndWidth);
           for dx := 1 to WndWidth-2 do
           begin
-//            pixel := ((PLine^[dx]+PLine^[dx-1]+PLine^[dx+1]+
-//              PLine^[dx+WndWidth]) shr 2)-(3-TraceLength);
             pixel := ((PLine^[dx+WndWidth]+PLine^[dx+WndWidth-1]+PLine^[dx+WndWidth+1]+
               PLine^[dx+2*WndWidth]) shr 2)-(3-TraceLength);
-//            pixel := ((PLine^[dx+1]+PLine^[dx-1]+PLine^[dx+WndWidth+1]+
-//              PLine^[dx+WndWidth-1]) shr 2)-(3-TraceLength);
             if (pixel<0) then PLine^[dx] := 0 else
               PLine^[dx] := pixel;
           end;
@@ -273,15 +236,7 @@ begin
       end;
   end;
 
-{  if (not (FirstFrame or Preview or Trace)) then
-    BitBlt(DC, LastLeft, LastTop, LastRight-LastLeft,
-      LastBottom-LastTop, CDC, LastLeft, LastTop, SRCCOPY) else
-  begin
-    BitBlt(DC, WndRect.Left, WndRect.Top, WndWidth, WndHeight, CDC, 0, 0, SRCCOPY);
-    FirstFrame := False;
-  end;}
-
-  if (ShowFPS) then // кадр/с / FPS
+  if (ShowFPS) then
   begin
     FPSStr := GetFPSStr+'  ';
     TextOutA(DC, 10, 10, PChar(FPSStr), Length(FPSStr));

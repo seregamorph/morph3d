@@ -5,16 +5,18 @@ interface
 uses Windows, MorphUn;
 
 var
-  SCX : Single=0; // Относительное смещение начала координат
-  SCY : Single=0; // Moving of the beginning of the coordinates center
-  SCZ : Single=0; //
+  // Relative offset of the beginning of the coordinates center
+  SCX : Single=0;
+  SCY : Single=0;
+  SCZ : Single=0;
 
-  ScrX : Integer=400; // Абсолютные координаты относительного начала координат
-  ScrY : Integer=300; // Absolute 2D-coordinates of coordinates center
+  // Absolute 2D-coordinates of coordinates center
+  ScrX : Integer=400;
+  ScrY : Integer=300;
 
-  CoefX : Single; // Коэффициент умножения - перевод относительных
-  CoefY : Single; // координат в абсолютные / Multiply coefficient for
-                  // counting absolute coordinates
+  // Multiply coefficient for counting absolute coordinates
+  CoefX : Single;
+  CoefY : Single;
 
   RAnim : Single=0;
   GAnim : Single=0;
@@ -23,18 +25,20 @@ var
   GTimer : Integer=0;
   BTimer : Integer=0;
 
-  VectX : Single= 0.00050;//0.00075;//0.00093; // Проекции вектора движения центра отсчета
-  VectY : Single= 0.00060;//0.00090;//0.00111; // начала координат
-  VectZ : Single= 0.00100;//0.00150;//0.00180;
   // Horizontal and vertical projections of the vector of moving 3D-center
+  VectX : Single= 0.00050;//0.00075;//0.00093;
+  VectY : Single= 0.00060;//0.00090;//0.00111;
+  VectZ : Single= 0.00100;//0.00150;//0.00180;
 
-  VectAX : Single=0.17;//0.24;//0.35; // Поворот (pi) фигуры за 1 секунду
-  VectAY : Single=0.14;//0.28;//0.25; // Rotation (pi) of the figure per 1 second
+  // Rotation (pi) of the figure per 1 second
+  VectAX : Single=0.17;//0.24;//0.35;
+  VectAY : Single=0.14;//0.28;//0.25;
   VectAZ : Single=0.00; //
 
 var
-  xa, ya, za : Single; // Углы поворота вокруг начала координат
-                       // Rotate angles around the beginning of the coordinates
+  // Rotate angles around the beginning of the coordinates
+  xa, ya, za : Single;
+
   LastTickCount : Single;
 
   PCoords1, PCoords2, Points : TCoords3DArr;
@@ -45,12 +49,13 @@ var
   LastBottom : Integer=0;
 
 const
-  CamZ = 10;        // Положение камеры(точки свода лучей) - (0, 0, CamZ)
-                    // Z-coordinate of camera - (X=0, Y=0, Z=CamZ)
-  ColorZ0 = 1.732;  // 3^0.5 Координата для расчета цвета точки
-                    // 3^0.5 Coordinate for the calculation of
-                    // the color of the point
-  FogCoef = 64;     // Коэффициент тумана / Fog coefficient
+  // Z-coordinate of camera - (X=0, Y=0, Z=CamZ)
+  CamZ = 10;
+  // 3^0.5 Coordinate for the calculation of
+  // the color of the point
+  ColorZ0 = 1.732;
+  // Fog coefficient
+  FogCoef = 64;
 
 procedure DrawScreen;
 
@@ -77,7 +82,6 @@ procedure DrawPoint(Coords2D : TCoords2D; ColorPal : byte; Color, Color2 : TColo
 var
   Rect : TRect;
   i, j : Integer;
-//  b : Byte;
 begin
   if (Coords2D.X<2) or (Coords2D.X>WndRect.Right-3) or
     (Coords2D.Y<2) or (Coords2D.Y>WndRect.Bottom-4) then Exit;
@@ -104,18 +108,6 @@ begin
       for i := -1 to 1 do
       for j := -1 to 1 do
         SetPixel(Coords2d.x+i, Coords2d.y+j, ColorPal);
-{      i := Coords2d.y;
-      j := Coords2d.x;
-      b := ColorPal;
-      asm
-        mov edi, bitptr
-        mov eax, i
-        shl eax, 10
-        add edi, eax
-        add edi, j
-
-        mov [edi], 255
-      end;}
     end;
 
     Rect := GetRect(Coords2d.X-1, Coords2d.Y-1, 4, 4);
@@ -139,8 +131,8 @@ begin
   end;
 end;
 
+// Screen Savers' engine
 function GetCoords2D(Coords3D : TCoords3D) : TCoords2D;
-// Движок скринсейвера / Screen Savers' engine
 var
   ZNorm : Single;
 begin
@@ -210,11 +202,10 @@ begin
   if (Gr>255) then Gr := 255;
 
   Result := Gr;
-  // Перевод RGB в оттенок серого
   // Translation RGB to the hue of grey
 end;
 
-procedure DrawScreen; // прорисовка экрана / procedure of screen drawing
+procedure DrawScreen; // procedure of screen drawing
 var
   n : Integer;
   Point : TCoords3D;
@@ -223,12 +214,10 @@ var
   Coeff : Single;
   palentryarr : array[0..255] of RGBQUAD;
 const
-//  MinTimeDelta = 10;
   MaxTimeDelta = 40;
 begin
   TimeDelta := GetTickCount-LastTickCount;
   if TimeDelta>MaxTimeDelta then TimeDelta := MaxTimeDelta;
-//  if TimeDelta<MinTimeDelta then TimeDelta := MinTimeDelta;
 
   LastTickCount := GetTickCount;
 
