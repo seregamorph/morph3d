@@ -295,6 +295,7 @@ begin
 
   GetClientRect(Window, WndRect);
   WndWidth := WndRect.Right-WndRect.Left;
+  if (WndWidth div 4 <> 0) then WndWidth := WndWidth - (WndWidth mod 4) + 4;
   WndHeight := WndRect.Bottom-WndRect.Top;
   if ((WndWidth=0) and (WndHeight=0)) then Exit;
 
