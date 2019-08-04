@@ -127,19 +127,10 @@ begin
     STime := GetTickCount;
     InvalidateRect(hWindow, nil, False);
     WTime := 0;
-    if (not Trace) then
-    begin
-      if (30+STime>GetTickCount) then
-        WTime := 30-(GetTickCount-STime);
-      if (WTime<3) then WTime := 3;
-      Sleep(WTime);
-    end else
-    begin
-      if (30+STime>GetTickCount) then
-        WTime := 30-(GetTickCount-STime);
-      if (WTime<3) then WTime := 3;
-      Sleep(WTime);
-    end;
+    if (30+STime>GetTickCount) then
+      WTime := 30-(GetTickCount-STime);
+    if (WTime<3) then WTime := 3;
+    Sleep(WTime);
   until (QuitSaver);
   Result := 0;
 end;
